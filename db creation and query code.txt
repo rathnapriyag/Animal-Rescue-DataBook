@@ -1,0 +1,453 @@
+
+CREATE TABLE BREED (BREED_NUM CHAR(5) PRIMARY KEY,
+                    BREED_NAME VARCHAR (40),
+                    BREED_TYPE VARCHAR (40), 
+                    BREED_VERT_GRP VARCHAR (40),
+                    BREED_DIET_CLASS VARCHAR (40),
+                    BREED_LIFE_EXP INT,
+                    BREED_QUALITIES VARCHAR (100)
+                   );
+
+
+INSERT INTO BREED VALUES ('11001', 'Golden Retriever', 'Dog', 'Mammal', 'Omnivore', 10, 'gentle, playful, outgoing, kid-friendly, easy to train, frequent grooming needed');
+INSERT INTO BREED VALUES ('11002', 'German Shepherd', 'Dog', 'Mammal', 'Omnivore', 11, 'gentle, intelligent, brave, kid-friendly, easy to train, less grooming needed');
+
+INSERT INTO BREED VALUES ('11003', 'British Shorthair', 'Cat', 'Mammal', 'Carnivore', 17, 'affectionate, intelligent, kid-friendly, less grooming needed');
+
+INSERT INTO BREED VALUES ('11004', 'Rottweiler', 'Dog', 'Mammal', 'Omnivore', 10, 'devoted, loyal, loving, intelligent, and protective');
+
+INSERT INTO BREED VALUES ('11005', 'Siberian Husky', 'Dog', 'Mammal', 'Omnivore', 13, 'athletic, playful, friendly and gentle');
+
+-------------------------------------------------------------------------------
+CREATE TABLE PET (PET_NUM CHAR(5) PRIMARY KEY,
+                  PET_NAME VARCHAR(40),
+                  PET_DOB DATE, 
+                  PET_DOR DATE,
+                  PET_DOP DATE, 
+                  BREED_NUM CHAR(5), 
+                  FOREIGN KEY (BREED_NUM) REFERENCES BREED(BREED_NUM));
+
+INSERT INTO PET VALUES ( '10001', 'Max', '2011-11-4',  '2021-10-10', NULL,'11001'); 
+INSERT INTO PET VALUES ( '10002', 'Buddy', '2019-08-9', '2020-11-06', NULL,'11002'); 
+INSERT INTO PET VALUES ( '10003', 'Charlie', '2010-07-05',  '2021-10-10', NULL,'11002'); 
+INSERT INTO PET VALUES ( '10004', 'Kitty', '2010-6-6', '2010-6-6', NULL,'11003'); 
+INSERT INTO PET VALUES ( '10005', 'Lucky', '2010-6-6','2010-6-6', NULL, '11003'); 
+INSERT INTO PET VALUES ( '10006', 'Jimmy', '2011-09-3',  '2021-11-04', '2021-11-05','11004'); 
+INSERT INTO PET VALUES ( '10007', 'Lola', '2019-04-01', '2020-06-09', NULL,'11005'); 
+INSERT INTO PET VALUES ( '10008', 'Marile', '2010-08-02',  '2021-08-12', NULL, '11001'); 
+INSERT INTO PET VALUES ( '10009', 'Scooby', '2010-07-06', '2021-04-16',NULL,'11004'); 
+INSERT INTO PET VALUES ( '10010', 'Simba', '2010-09-08','2021-07-13', NULL,'11003'); 
+
+-------------------------------------------------------------------------------
+
+CREATE TABLE CLINIC (
+    		    CLI_NUM CHAR(5) PRIMARY KEY,
+                    CLI_NAME VARCHAR (40),
+                    CLI_ADD_STREET VARCHAR (40), 
+                    CLI_ADD_CITY VARCHAR (25),
+                    CLI_ADD_STATE CHAR(2),
+                    CLI_ADD_ZIP CHAR(5),
+                    CLI_CONTACT_NUM CHAR(12),
+                    CLI_NUM_VETS INT,
+                    CLI_FACILITIES VARCHAR(100)
+                   );
+
+INSERT INTO CLINIC VALUES ("30001","City Animal Clinic","635 N East St", "Indianapolis","IN","46202","317-396-0146", 10,"exam rooms,surgery room, x-ray, dental area");
+
+INSERT INTO CLINIC VALUES ("30002","All Pet Health Care","3825 W Washington St", "Indianapolis","IN","46202","317-396-1172", 20,"pharmacy, treatment area, surgery room");
+
+INSERT INTO CLINIC VALUES ("30003","Paws Health Animal Clinic","1300 N Emerson Ave", "Indianapolis","IN","46202","317-396-3356", 15,"exam rooms, pharmacy, treatment area, surgery room, x-ray, dental area");
+
+
+INSERT INTO CLINIC VALUES ("30004","Harvester Animal Clinic","899 Village Center Dr,", "Burr Ridge","IL","60527","630-528-3389", 25,"exam rooms, pharmacy, treatment area, vaccinations, blood tests, dental cleaning");
+
+INSERT INTO CLINIC VALUES ("30005","Johnson Animal Health Clinic","3825 W Washington St", "Indianapolis","IN","46202","317-398-6785", 15," dental area, pharmacy, treatment area, surgery room");
+
+
+----------------------------------------------------------------------
+
+
+
+CREATE TABLE VET (VET_NUM CHAR(5) PRIMARY KEY,
+                  VET_FNAME VARCHAR(40),
+                  VET_LNAME VARCHAR(40),
+                  VET_SPECIALIZATION VARCHAR(40),
+                  VET_BROAD_CERT VARCHAR(40),
+                  VET_NUM_PRACT_YRS INT,
+                  VET_CONTACT_NUM CHAR(12),
+                  VET_WORK_HRS VARCHAR(40),
+                  CLI_NUM CHAR(5),
+                  FOREIGN KEY (CLI_NUM) REFERENCES CLINIC(CLI_NUM));
+
+INSERT INTO VET VALUES (
+    31001, "Mary","Smith", "DENTISTRY", "ABVP", 10 , "317-378-9987", "9.00 AM - 6.00 PM", 30001); 
+    
+ INSERT INTO VET VALUES (
+    31002, "Ava","Jones", "DERMATOLOGY", "ABVP", 5 , "317-378-5432",  "10.00 AM - 5.00 PM", 30002); 
+    
+     INSERT INTO VET VALUES (
+    31003, "William","Davis", "SURGERY", "ABVP", 20 , "317-378-8966",  "11.00 AM - 7.00 PM", 30003);
+    
+     INSERT INTO VET VALUES (
+    31004, "Mary","Smith", "SURGERY", "ABVP", 10 , "618-378-8439",  "10.00 AM - 8.00 PM", 30004);    
+    
+     INSERT INTO VET VALUES (
+    31005, "Mark","Johnson", "DENTISTRY", "ABVP", 15 , "618-378-8678",  "10.00 AM - 8.00 PM", 30005);
+       
+       
+   ----------------------------------------------------------------
+   
+
+
+
+CREATE TABLE OWNER (
+        OWN_NUM CHAR(5) PRIMARY KEY,
+        OWN_FNAME VARCHAR(40),
+        OWN_LNAME VARCHAR(40),
+        OWN_CONTACT_NUM CHAR(12),
+        OWN_ADD_STREET VARCHAR (40), 
+        OWN_ADD_CITY VARCHAR (25),
+        OWN_ADD_STATE CHAR(2),
+        OWN_ADD_ZIP CHAR(5),
+        OWN_PROFESSION VARCHAR(40),
+        OWN_DOB DATE,
+        OWN_NUM_PETS INT,
+        OWN_NUM_KIDS INT,
+        OWN_NUM_FREE_HRS INT
+    );
+
+INSERT INTO OWNER VALUES (
+    50001, "Thomas", "Brown", "317-377-0999", "10 Oak Drive","Indianapolis","IN","46202", "Teacher", '1994-05-09', 2, 0, 4 );
+    
+    
+INSERT INTO OWNER VALUES (
+    50002, "Jane", "Williams", "654-377-9974", "1300 N Emerson Ave","Indianapolis","IN","46201", "Software Engineer", '1994-06-12', 1, 3, 7 );
+
+INSERT INTO OWNER VALUES (
+    50003, "Harris", "Thompson", "573-334-0929", "47th Pl Exd"," Chicago,","IL","60609", "Dentist", '1995-07-16', 3, 2, 5 );
+
+     
+INSERT INTO OWNER VALUES (
+    50004, "David", "Smith", "654-322-9987", "1472 N Emerson Ave","Indianapolis","IN","46201", "Professor", '1982-02-02', 0, 4, 8 );
+
+INSERT INTO OWNER VALUES (
+    50005, "Amanda", "Colbert", "573-314-7645", "90th Pl Exd"," Chicago,","IL","60609", "Artist", '1985-04-14', 1, 2, 10 );
+
+   
+  
+ 
+  
+
+------------------------------------------------------------------------- 
+
+
+CREATE TABLE FOSTER (
+        FOS_NUM CHAR(5) PRIMARY KEY,
+        FOS_FNAME VARCHAR(40),
+        FOS_LNAME VARCHAR(40),
+        FOS_CONTACT_NUM CHAR(12),
+        FOS_ADD_STREET VARCHAR (40), 
+        FOS_ADD_CITY VARCHAR (25),
+        FOS_ADD_STATE CHAR(2),
+        FOS_ADD_ZIP CHAR(5),
+        FOS_PROFESSION VARCHAR(40),
+        FOS_DOB DATE,
+        FOS_NUM_PETS INT,
+    	FOS_NUM_FOS_PETS INT,
+        FOS_NUM_KIDS INT,
+    	FOS_MED_KNOW VARCHAR(100),
+        FOS_NUM_FREE_HRS INT,
+    	FOS_PAID_VOL CHAR(1)
+    );
+
+
+
+INSERT INTO FOSTER VALUES (
+    51001, "Alice", "Miller", "317-745-2562", "6th Avenue East","Indianapolis","IN","46221", "Doctor", '1990-01-03', 1, 1, 3, "SURGERY", 3, "V" );
+
+INSERT INTO FOSTER VALUES (
+    51002, "John", "Lewis", "345-224-9845", "2nd Bomar St","Greenwood","IN","46142", "Teacher", '1996-12-08',  1, 0, 4,NULL, 5, "V" );
+
+INSERT INTO FOSTER VALUES (
+    51003, "Jane", "Williams", "654-377-9974", "10 Oak Drive","Indianapolis","IN","46202", "Software Engineer", '1995-04-06', 1, 3, 7 ,NULL,  6,"P");
+    
+INSERT INTO FOSTER VALUES (
+    51004, "Adam", "Scott", "345-224-9845","1472 N Emerson Ave","Indianapolis","IN","46201", "Carpenter", '1996-12-08',  0, 0, 2,NULL, 6, "P" );
+
+INSERT INTO FOSTER VALUES (
+    51005, "Stephen", "Clark", "654-377-9974", "1300 N Emerson Ave","Indianapolis","IN","46201", "Singer", '1995-04-06', 1, 0, 7 ,NULL,  5,"V");
+
+--------------------------------------------------------------------------
+
+CREATE TABLE STAFF (
+        STF_NUM CHAR(5) PRIMARY KEY,
+        STF_FNAME VARCHAR(40),
+        STF_LNAME VARCHAR(40),
+        STF_CONTACT_NUM CHAR(12),
+        STF_ADD_STREET VARCHAR (40), 
+        STF_ADD_CITY VARCHAR (25),
+        STF_ADD_STATE CHAR(2),
+        STF_ADD_ZIP CHAR(5),
+    	STF_DOB DATE,
+        STF_DESIGNATION VARCHAR(40),
+    	STF_PAID_VOL CHAR(1)
+    );
+
+
+
+
+INSERT INTO STAFF VALUES (
+"60001", "Catherine", "Flores","317-398-0034", "86th Street West" ,"Indianapolis","IN","46278", '1990-09-15',"Caretaker", "P");
+        
+INSERT INTO STAFF VALUES (
+"60002", "Robert", "Adams","317-398-0034", "87th Street West" ,"Indianapolis","IN","46278", '1992-07-14',"Caretaker", "P");
+        
+INSERT INTO STAFF VALUES (
+"60003", "James", "Hall","317-398-0034", "88th Street West" ,"Indianapolis","IN","46278", '1992-05-10',"Caretaker", "P");
+        
+INSERT INTO STAFF VALUES (
+"60004", "Annie", "Evans","317-398-0034", "93 Drive East" ,"Indianapolis","IN","46231", '1989-12-01',"Caretaker", "V");
+                
+INSERT INTO STAFF VALUES (
+"60005", "George", "Miller","317-398-0674", "6th Avenue East","Indianapolis","IN","46221" , '1993-04-07',"Caretaker", "V");
+      
+-------------------------------------------------------------------
+
+
+CREATE TABLE DONATOR (
+        DNR_NUM CHAR(5) PRIMARY KEY,
+        DNR_ORG_NAME VARCHAR(40),
+        DNR_DIRECTOR VARCHAR(40),
+    	DNR_LIASION VARCHAR(40),
+        DNR_CONTACT_NUM CHAR(12),
+        DNR_ADD_STREET VARCHAR (40), 
+        DNR_ADD_CITY VARCHAR (25),
+        DNR_ADD_STATE CHAR(2),
+        DNR_ADD_ZIP CHAR(5),
+    	DNR_DOF DATE,
+        DNR_NUM_RUN_YRS INT
+    );
+
+
+
+INSERT INTO DONATOR VALUES(
+    "70001", "Animal Welfare Society", "Liam Park", "James Willson", "317-889-7645", "40 And 8 Avenue", "Indianapolis" , "IN", "46204", '1980-01-01', 41); 
+    
+INSERT INTO DONATOR VALUES(
+    "70002", "Pets Health Group", "Alice Cooper", "Rebecca Turner", "618-234-7666", "116th Street, East ", "Chicago" , "IL", "60628", '1990-05-05', 31); 
+    
+INSERT INTO DONATOR VALUES(
+    "70003", "Alley Cats Aid", "John Cruz", "Millie Edwards", "317-112-9876", "Adams Boulevard East Drive", "Indianapolis" , "IN", "46220", '2000-04-09', 21); 
+
+INSERT INTO DONATOR VALUES(
+    "70004", "Animal Healing Society", "Betty Davis", "Micheal Clarkson", "618-234-7666", "878 Village Center Dr,", "Burr Ridge","IL","60527", '1990-04-29', 41); 
+    
+INSERT INTO DONATOR VALUES(
+    "70005", "Lost Pets Aid", "Bob Miller", "William Brown", "317-112-9876", "3200 W Washington St", "Indianapolis","IN","46202", '2000-02-10', 21); 
+
+--------------------------------------------------------------------
+
+
+CREATE TABLE DONATION (
+    DON_NUM CHAR(5) PRIMARY KEY,
+    DON_DATE DATE,
+    DNR_NUM CHAR(5),
+    DON_AMOUNT NUMERIC(6,2),
+    FOREIGN KEY (DNR_NUM) REFERENCES DONATOR(DNR_NUM) 
+);
+
+
+INSERT INTO DONATION VALUES (
+    "71001", '2021-06-01', "70001", 5000.00); 
+INSERT INTO DONATION VALUES (
+    "71002", '2021-07-05', "70002", 3000.00); 
+INSERT INTO DONATION VALUES (
+    "71003", '2021-01-01', "70003", 7500.00); 
+INSERT INTO DONATION VALUES (
+    "71004", '2021-09-10', "70001", 2500.00); 
+INSERT INTO DONATION VALUES (
+    "71005", '2021-01-01', "70004", 4500.00); 
+INSERT INTO DONATION VALUES (
+    "71006", '2021-08-14', "70005", 1500.00); 
+
+----------------------------------------------------------------
+
+CREATE TABLE ADOPTION (
+    ADOP_NUM CHAR(5) PRIMARY KEY,
+    ADOP_DATE DATE,
+    PET_NUM CHAR(5),
+    OWN_NUM CHAR(5),
+    ADOP_FEE NUMERIC(6,2),
+    FOREIGN KEY (PET_NUM) REFERENCES PET(PET_NUM),
+    FOREIGN KEY (OWN_NUM) REFERENCES OWNER(OWN_NUM)
+    );
+
+
+INSERT INTO ADOPTION VALUES(
+"80001", '2021-10-10', "10001", "50001", 50.50);
+
+INSERT INTO ADOPTION VALUES(
+"80002", '2021-10-15', "10002", "50003", 60.20);
+    
+INSERT INTO ADOPTION VALUES(
+"80003", '2021-10-22', "10001", "50001", 50.20);
+
+INSERT INTO ADOPTION VALUES(
+"80004", '2021-09-01', "10007", "50004", 60.50);
+
+INSERT INTO ADOPTION VALUES(
+"80005", '2021-08-09', "10010", "50005", 60.25);
+
+
+--------------------------------------------------------
+    
+
+CREATE TABLE INVOICE (
+    INV_NUM CHAR(5) PRIMARY KEY,
+    INV_DATE DATE,
+    INV_AMOUNT NUMERIC(6,2),
+    DON_NUM CHAR(5),
+    INV_REASON VARCHAR(40),
+    FOREIGN KEY (DON_NUM) REFERENCES DONATION(DON_NUM)
+    );
+
+INSERT INTO INVOICE VALUES(
+    "90001", '2021-11-01', 1500.00, "71001", "Salary");
+INSERT INTO INVOICE VALUES(
+    "90002", '2021-11-01', 1000.00, "71001", "Salary");   
+INSERT INTO INVOICE VALUES(
+    "90003", '2021-11-01', 1000.00, "71001", "Salary");   
+INSERT INTO INVOICE VALUES(
+    "90004", '2021-11-10', 100.00, "71002", "Foster Cost");   
+INSERT INTO INVOICE VALUES(
+    "90005", '2021-12-01', 1500.00, "71002", "Salary");  
+INSERT INTO INVOICE VALUES(
+    "90006", '2021-12-01', 1000.00, "71003", "Salary");  
+INSERT INTO INVOICE VALUES(
+    "90007", '2021-12-01', 1000.00, "71001", "Salary");   
+INSERT INTO INVOICE VALUES(
+    "90008", '2021-12-15', 150.00, "71003", "Foster Cost");  
+INSERT INTO INVOICE VALUES(
+    "90009", '2021-12-01', 20.00, "71003", "Vet Cost");  
+INSERT INTO INVOICE VALUES(
+    "90010", '2021-12-02', 30.00, "71003", "Vet Cost");      
+INSERT INTO INVOICE VALUES(
+    "90011", '2021-12-03', 10.00, "71003", "Vet Cost");  
+INSERT INTO INVOICE VALUES(
+    "90012", '2021-12-04', 20.00, "71003", "Vet Cost");  
+INSERT INTO INVOICE VALUES(
+    "90013", '2021-12-06', 30.00, "71003", "Vet Cost");  
+-------------------------------------------------------------
+
+
+CREATE TABLE SALARY (
+    SAL_NUM CHAR(5) PRIMARY KEY,
+    SAL_DATE DATE,
+    STF_NUM CHAR(5),
+    SAL_AMOUNT NUMERIC(6,2),
+    SAL_NUM_WORK_HRS INT,
+    INV_NUM CHAR(5),
+    FOREIGN KEY (STF_NUM) REFERENCES STAFF(STF_NUM),
+    FOREIGN KEY (INV_NUM) REFERENCES INVOICE(INV_NUM)
+    );
+
+
+
+INSERT INTO SALARY VALUES(
+    "61000", '2021-11-01', "60001", 1500.00, 180, "90001");
+INSERT INTO SALARY VALUES(
+    "61002", '2021-11-01', "60002", 1250.00, 150, "90002");
+INSERT INTO SALARY VALUES(
+    "61003", '2021-11-01', "60003", 1000.00, 125, "90003");
+INSERT INTO SALARY VALUES(
+    "61004", '2021-12-01', "60001", 1500.00 , 180, "90005");
+INSERT INTO SALARY VALUES(
+    "61005", '2021-12-01', "60002", 1250.00 , 180, "90006");
+INSERT INTO SALARY VALUES(
+    "61006", '2021-12-01', "60002", 1000.00 , 125, "90007");  
+
+
+
+----------------------------------------------------------------
+
+
+CREATE TABLE ASSIGNMENT (
+    ASSI_NUM CHAR(5) PRIMARY KEY,
+    ASSI_DATE DATE,
+    PET_NUM CHAR(5),
+    FOS_NUM CHAR(5),
+    ASSI_FUND NUMERIC(6,2),
+    ASSI_NUM_DAYS INT,
+    INV_NUM CHAR(5),
+    FOREIGN KEY (PET_NUM) REFERENCES PET(PET_NUM),
+	FOREIGN KEY (FOS_NUM) REFERENCES FOSTER(FOS_NUM),
+    FOREIGN KEY (INV_NUM) REFERENCES INVOICE(INV_NUM)
+    );
+
+INSERT INTO ASSIGNMENT VALUES(
+    "52001",'2021-11-10',"10003","51003", 100.00, 15, "90004");
+INSERT INTO ASSIGNMENT VALUES(
+    "52002",'2021-11-20',"10004","51001", 0, 15, NULL);
+INSERT INTO ASSIGNMENT VALUES(
+    "52003",'2021-11-20',"10005","51001", 0, 15, NULL);
+INSERT INTO ASSIGNMENT VALUES(
+    "52004",'2021-12-07',"10004","51002", 0, 10, NULL);
+INSERT INTO ASSIGNMENT VALUES(
+    "52005",'2021-12-15',"10003","51003", 150.00, 20, "90008");
+
+---------------------------------------------------------------------
+
+CREATE TABLE APPOINTMENT (
+    APP_NUM CHAR(5) PRIMARY KEY,
+    APP_DATE DATE,
+    PET_NUM CHAR(5),
+    VET_NUM CHAR(5),
+    APP_DIAGNOSIS VARCHAR(100),
+    APP_PRESCRIPTION  VARCHAR(100),
+    INV_NUM CHAR(5),
+    FOREIGN KEY (PET_NUM) REFERENCES PET(PET_NUM),
+	FOREIGN KEY (VET_NUM) REFERENCES VET(VET_NUM),
+    FOREIGN KEY (INV_NUM) REFERENCES INVOICE(INV_NUM)
+    );
+
+
+INSERT INTO APPOINTMENT VALUES(
+    "32001", '2021-12-01', "10001", "31002", "Ear Infections", "Enrofloxacin", "90009");
+    
+INSERT INTO APPOINTMENT VALUES(
+    "32002", '2021-12-02', "10004", "31001", "Gingivitis", "Perioshield", "90010");
+    
+INSERT INTO APPOINTMENT VALUES(
+    "32003", '2021-12-03', "10005", "31003", "Fracture", "Surgery", "90011");  
+   
+INSERT INTO APPOINTMENT VALUES(
+    "32004", '2021-12-04', "10008", "31005", "Periodontitis", "metronidazole", "90012");
+    
+INSERT INTO APPOINTMENT VALUES(
+    "32005", '2021-12-06', "10009", "31003", "Fracture", "Surgery", "90013");  
+
+
+----------------------------------------------------------------------------  
+
+
+
+Questions and their SQL Queries:
+
+A query that pulls data from one table
+1)	How many numbers of pets are rescued in the year 2021 by the animal rescue?
+SELECT COUNT(*) AS 'Number of pets rescued in 2021'
+FROM PET
+WHERE YEAR(PET_DOR) = 2021;
+
+A query that pulls data from two tables
+2)	What are the names of Golden Retriever dogs rescued by the animal rescue?
+SELECT PET_NAME 
+FROM PET INNER JOIN BREED
+ON PET.BREED_NUM = BREED.BREED_NUM
+WHERE BREED.BREED_NAME = 'Golden Retriever';
+
+A query that also includes a subquery
+3)	What are the names of the oldest pets rescued by the animal rescue?
+SELECT PET_NAME 
+FROM PET
+WHERE PET_DOB = (SELECT MIN(PET_DOB) FROM PET);
